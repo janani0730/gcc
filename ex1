@@ -1,0 +1,121 @@
+package com.aishu.CalcServer;
+
+import javax.jws.WebService;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+
+/**
+ *
+ * @author Aishu
+ */
+@WebService(serviceName = "CalcServer")
+public class CalcServer {
+
+    /**
+     * This is a sample web service operation
+     */
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "Add")
+    public int add(@WebParam(name = "num1") int num1, @WebParam(name = "num2") int num2) {
+        //TODO write your implementation code here:
+        return num1+num2;
+    }
+   
+    @WebMethod(operationName = "Sub")
+    public int sub(@WebParam(name = "num1") int num1, @WebParam(name = "num2") int num2) {
+        //TODO write your implementation code here:
+        return num1-num2;
+    }
+   
+     @WebMethod(operationName = "Sine")
+    public double sine(@WebParam(name = "num1") int num1) {
+        //TODO write your implementation code here:
+        return Math.sin(Math.toRadians(num1));
+    }
+   
+     
+     @WebMethod(operationName = "Pow")
+    public double pow(@WebParam(name = "num1") int num1,@WebParam(name = "num2") int num2) {
+        //TODO write your implementation code here:
+        return Math.pow(num1,num2);
+    }
+}
+
+
+
+form.html
+***********
+
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form method="get" action="arithmetic.jsp">
+            <input type="text" name="num1"><br>
+            <input type="text" name="num2"><br>
+            <input type="submit" name="submit" value="add">
+            <input type="submit" name="submit" value="sub">
+        </form>  
+       
+        <form method="get" action="arithmetic.jsp" target="_self">
+            <input type="text" name="num1"><br>
+            <input type="submit" name=sin value="sin">
+        </form>  
+       
+         <form method="get" action="arithmetic.jsp" target="_self">
+            <input type="text" name="num1"><br>
+            <input type="text" name="num2"><br>
+            <input type="submit" name="pow" value="pow">
+        </form>  
+       
+    </body>
+</html>
+
+
+arithmetic.jsp
+**************
+
+<%--
+    Document   : aritmetic
+    Created on : 6 Oct, 2019, 4:25:50 PM
+    Author     : Aishu
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <h1>Hello World!</h1>    <%-- start web service invocation --%><hr/>
+    <%
+    try {
+in.aishu.add.AddService_Service service = new in.aishu.add.AddService_Service();
+in.aishu.add.AddService port = service.getAddServicePort();
+// TODO initialize WS operation arguments here
+int num1 = 3;
+int num2 = 9;
+// TODO process result here
+int result = port.operation(num1, num2);
+out.println("Result = "+result);
+    } catch (Exception ex) {
+// TODO handle custom exceptions here
+    }
+    %>
+    <%-- end web service invocation --%><hr/>
+
+    </body>
+</html>
